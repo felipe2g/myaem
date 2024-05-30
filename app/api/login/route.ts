@@ -35,10 +35,11 @@ export async function POST(req: Request) {
 			const data = await handleLogin(params);
 			return Response.json(data);
 		default:
-			// eslint-disable-next-line no-case-declarations
-			const unknownParams: { type: string } = params;
-			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-			throw new Error(`Unknown login type: ${unknownParams.type}`);
+			console.error("Unknown login method: GET");
+			return Response.json({
+				errorCode: 9,
+				errorMessage: 'Unknown login method',
+			})
 	}
 }
 

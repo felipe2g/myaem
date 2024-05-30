@@ -65,6 +65,7 @@ model Players {
   group_id                                          Int                  @default(1)
   account_id                                        Int                  @default(0) @db.UnsignedInt
   level                                             Int                  @default(1)
+  experience                                        BigInt               @default(0)
   vocation                                          Int                  @default(0)
   sex                                               Int                  @default(0)
   istutorial                                        Boolean              @default(false)

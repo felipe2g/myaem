@@ -6,3 +6,54 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model BoostedBoss {
+  looktypeEx Int     @default(0)
+  looktype   Int     @default(136)
+  lookfeet   Int     @default(0)
+  looklegs   Int     @default(0)
+  lookhead   Int     @default(0)
+  lookbody   Int     @default(0)
+  lookaddons Int     @default(0)
+  lookmount  Int?    @default(0)
+  date       String  @id @default("") @db.VarChar(250)
+  boostname  String? @db.Text
+  raceid     String  @default("") @db.VarChar(250)
+
+  @@map("boosted_boss")
+}
+
+model BoostedCreature {
+  looktype   Int     @default(136)
+  lookfeet   Int     @default(0)
+  looklegs   Int     @default(0)
+  lookhead   Int     @default(0)
+  lookbody   Int     @default(0)
+  lookaddons Int     @default(0)
+  lookmount  Int?    @default(0)
+  date       String  @id @default("") @db.VarChar(250)
+  boostname  String? @db.Text
+  raceid     String  @default("") @db.VarChar(250)
+
+  @@map("boosted_creature")
+}
+
+model Players {
+  id                                                Int                  @id @default(autoincrement())
+  name                                              String               @unique(map: "players_unique") @db.VarChar(255)
+  group_id                                          Int                  @default(1)
+  account_id                                        Int                  @default(0) @db.UnsignedInt
+  level                                             Int                  @default(1)
+  vocation                                          Int                  @default(0)
+
+  online                                            PlayerOnline?
+  
+  @@map("players")
+}
+
+model PlayerOnline {
+  player_id Int     @id
+  player    Players @relation(fields: [player_id], references: [id])
+
+  @@map("players_online")
+}
